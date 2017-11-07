@@ -20,10 +20,10 @@ resource "aws_instance" "instance" {
   ebs_block_device = ["${var.ebs_block_devices}"]
 
   tags = "${merge("${var.tags}",
-    map("Name", "${var.project}-${var.environment}-${var.name}${count.index + 1}",
-      "Function", "${var.name}",
-      "Environment", "${var.environment}",
-      "Project", "${var.project}"))
+    map("Name", "${var.environment}.${var.project}.${var.name}.${count.index + 1}",
+      "service", "${var.name}",
+      "environment", "${var.environment}",
+      "stack", "${var.project}"))
   }"
 
   lifecycle {
@@ -51,10 +51,10 @@ resource "aws_instance" "instance_no_ebs" {
   }
 
   tags = "${merge("${var.tags}",
-    map("Name", "${var.project}-${var.environment}-${var.name}${count.index + 1}",
-      "Function", "${var.name}",
-      "Environment", "${var.environment}",
-      "Project", "${var.project}"))
+    map("Name", "${var.environment}.${var.project}.${var.name}.${count.index + 1}",
+      "service", "${var.name}",
+      "environment", "${var.environment}",
+      "stack", "${var.project}"))
   }"
 
   lifecycle {
