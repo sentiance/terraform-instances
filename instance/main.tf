@@ -32,7 +32,7 @@ resource "aws_instance" "instance" {
       "environment", "${var.environment}",
       "stack", "${var.project}"))
   }"
-  
+
   lifecycle {
     ignore_changes = ["key_name", "user_data"]
   }
@@ -58,6 +58,13 @@ resource "aws_instance" "instance_no_ebs" {
   }
 
   tags = "${merge("${var.tags}",
+    map("Name", "${var.environment}.${var.project}.${var.name}.${count.index + 1}",
+      "service", "${var.name}",
+      "environment", "${var.environment}",
+      "stack", "${var.project}"))
+  }"
+
+  volume_tags = "${merge("${var.tags}",
     map("Name", "${var.environment}.${var.project}.${var.name}.${count.index + 1}",
       "service", "${var.name}",
       "environment", "${var.environment}",
